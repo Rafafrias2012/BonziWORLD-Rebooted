@@ -178,6 +178,18 @@ let userCommands = {
         let argsString = Utils.argsString(arguments);
         this.private.sanitize = !sanitizeTerms.includes(argsString.toLowerCase());
     },
+"kick": function(username) {
+  if (this.private.runlevel >= 3) {
+    let kickUser = Object.values(this.room.users).find(u => u.public.name === username);
+    if (kickUser) {
+      kickUser.socket.emit("kick", {
+        reason: "Kicked by " + this.public.name
+      });
+      kickUser.disconnect();
+    }
+  }
+},
+
   css:function(...txt){
       this.room.emit('css',{
           guid:this.guid,
@@ -361,6 +373,11 @@ class User {
         });
 
        this.socket.on('login', this.login.bind(this));
+
+       this.socket.on("kick", function(data) {
+          this.socket.emit("kicked", data);
+          this.disconnect();
+       }.bind(this));
     }
 
     getIp() {
