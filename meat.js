@@ -245,21 +245,25 @@ let userCommands = {
     "linux": "passthrough",
     "pawn": "passthrough",
     "bees": "passthrough",
-    "color": function(color) {
-        if (typeof color != "undefined") {
-            if (settings.bonziColors.indexOf(color) == -1)
-                return;
-            
-            this.public.color = color;
-        } else {
-            let bc = settings.bonziColors;
-            this.public.color = bc[
-                Math.floor(Math.random() * bc.length)
-            ];
-        }
+    "color": function(colorOrUrl) {
+  if (typeof colorOrUrl != "undefined") {
+    if (colorOrUrl.startsWith("http")) {
+      this.public.colorUrl = colorOrUrl;
+      this.public.color = null;
+    } else if (settings.bonziColors.indexOf(colorOrUrl) != -1) {
+      this.public.color = colorOrUrl;
+      this.public.colorUrl = null;
+    } else {
+      return;
+    }
+  } else {
+    let bc = settings.bonziColors;
+    this.public.color = bc[Math.floor(Math.random() * bc.length)];
+    this.public.colorUrl = null;
+  }
+  this.room.updateUser(this);
+},
 
-        this.room.updateUser(this);
-    },
     "pope": function() {
         this.public.color = "pope";
         this.room.updateUser(this);
@@ -352,7 +356,8 @@ class User {
         this.public = {
             color: settings.bonziColors[Math.floor(
                 Math.random() * settings.bonziColors.length
-            )]
+            )],
+	    colorUrl: null
         };
 
         log.access.log('info', 'connect', {
