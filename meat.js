@@ -189,6 +189,16 @@ let userCommands = {
     }
   }
 },
+"announce": function(message) {
+  if (this.private.runlevel >= 3) {
+    this.room.emit("announcement", {
+      message: message
+    });
+  } else {
+    this.socket.emit('commandFail', { reason: "runlevel" });
+  }
+},
+
 
   css:function(...txt){
       this.room.emit('css',{
