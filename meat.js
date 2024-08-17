@@ -245,13 +245,12 @@ let userCommands = {
     "linux": "passthrough",
     "pawn": "passthrough",
     "bees": "passthrough",
-    "color": function(colorOrUrl) {
-  if (typeof colorOrUrl != "undefined") {
-    if (colorOrUrl.startsWith("http")) {
-      this.public.colorUrl = colorOrUrl;
-      this.public.color = null;
-    } else if (settings.bonziColors.indexOf(colorOrUrl) != -1) {
-      this.public.color = colorOrUrl;
+    "color": function(color) {
+  if (typeof color != "undefined") {
+    if (color.startsWith("http")) {
+      this.public.colorUrl = color;
+    } else if (settings.bonziColors.indexOf(color) != -1) {
+      this.public.color = color;
       this.public.colorUrl = null;
     } else {
       return;
@@ -263,6 +262,7 @@ let userCommands = {
   }
   this.room.updateUser(this);
 },
+
 
     "pope": function() {
         this.public.color = "pope";
