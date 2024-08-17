@@ -149,22 +149,24 @@ input[type="text"] {
   position: absolute; }
 
 .bubble-content {
-  padding: 12px;
-  unused-max-height: 175px;
-  user-select: text;
-  -webkit-user-select: text;
-  overflow-x: hidden;
-  overflow-y: auto;
-  font-size: 14px;
-  font-smooth: never;
-  -webkit-font-smoothing: none;
-  position: relative;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto; 
+  position: absolute;
+    width: 170px;
+    padding: 12px;
+    top: 55px;
+    user-select: text;
+    -webkit-user-select: text;
+    font-size: 14px;
+    font-smooth: never;
+    -webkit-font-smoothing: none;
+    position: absolute;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 .bubble {
