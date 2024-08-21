@@ -101,13 +101,13 @@ input[type="text"] {
   border: 1px inset #AAA;
   color: #000; }
 
-.xp_bubble, .bubble {
-  background: #ffffc8;
-  border: 2px solid #000000;
-  border-radius: 12px;
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  padding: 10px; 
-}
+.xp_bubble, .bubble, .bubble_rev {
+    background: #ffffe1;
+    color: #000;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    border: #000000 solid 1px; }
 
 @font-face {
   font-family: "Tahoma";
@@ -148,57 +148,63 @@ input[type="text"] {
 .bonzi > canvas, .bonzi_placeholder {
   position: absolute; }
 
-.bubble-content {
+.bubble, .bubble_rev {
+  position: absolute;
+  width: 200px; /* Increased from 170px */
+  padding: 15px; /* Increased from 12px */
+  top: 55px;
+  user-select: text;
+  -webkit-user-select: text;
   font-size: 14px;
-  line-height: 1.4;
-}
-
-.bubble {
+  font-smooth: never;
+  -webkit-font-smoothing: none;
   position: absolute;
-  top: -80px; /* Adjust this value as needed */
-  left: 50%;
-  transform: translateX(-50%); }
-  .bubble::after {
-  content: '';
-  position: absolute;
-  border: 10px solid transparent;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
-.bubble-left {
-  right: -45px;
-  top: 40px; }
-  .bubble-left::after {
-  border-right-color: #ffffc8;
-  left: -20px;
-  top: 15px;
-}
 
-.bubble-right {
-  top: 40px;
-  left: 155px; }
-  .bubble-right::after {
-  border-left-color: #ffffc8;
-  right: -20px;
-  top: 15px;
-}
+.bubble:after, .bubble:before, .bubble_rev:after, .bubble_rev:before {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 4px 12px 4px 0;
+      display: block;
+      width: 0;
+      top: 9px; }
+    .bubble:after, .bubble_rev:after {
+      border-color: transparent #ffffe1;
+      z-index: 1; }
+    .bubble:before, .bubble_rev:before {
+      border-color: transparent #000000;
+      z-index: 0; }
 
-.bubble-bottom {
-  top: 156px; }
-  .bubble-bottom::after {
-  border-top-color: #ffffc8;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .bubble {
+    left: 180px; }
+    .bubble:after, .bubble:before {
+      border-width: 4px 12px 4px 0; }
+    .bubble:after {
+      left: -12px; }
+    .bubble:before {
+      left: -13px; }
 
-.bubble-top {
-  bottom: 4px; }
-  .bubble-top::after {
-  border-bottom-color: #ffffc8;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .bubble_rev {
+    right: -20px; }
+    .bubble_rev:after, .bubble_rev:before {
+      border-width: 4px 0 4px 12px; }
+    .bubble_rev:after {
+      right: -12px; }
+    .bubble_rev:before {
+      right: -13px; }
+
+  .bubble_autowidth {
+    width: auto !important; }
 
 .bonzi_name {
 	border-style: solid;
