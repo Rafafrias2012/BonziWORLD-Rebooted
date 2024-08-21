@@ -189,6 +189,18 @@ let userCommands = {
     }
   }
 },
+"ban": function(username, reason, length) {
+  if (this.private.runlevel >= 3) {
+    let banUser = Object.values(this.room.users).find(u => u.public.name === username);
+    if (banUser) {
+      Ban.addBan(banUser.getIp(), reason, length);
+      banUser.socket.emit("banned", { reason: reason, length: length });
+      banUser.disconnect();
+    }
+  } else {
+    this.socket.emit('commandFail', { reason: "runlevel" });
+  }
+}
 "announce": function(message) {
   if (this.private.runlevel >= 3) {
     this.room.emit("announcement", {
